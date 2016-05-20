@@ -47,10 +47,9 @@ public class Profile extends AppCompatActivity {
     public void search(View view) {
         // Do something in response to button
         ProfileLog.Print('i', "Search", "Button pressed");
-        GetResultFromServer asyncGetResult = new GetResultFromServer();
+        Search  asyncGetResult = new Search();
         String text = ((EditText) findViewById(R.id.searchText)).getText().toString();
         String urls = "https://devwcm.scania.com/profile?q=" + text.replace(" ", "%20");
-        //String urls = "http://www.sundback.com/ws/currentData.php";
         ProfileLog.Print('d', "URL: " + urls, "ALL");
         URL url = null;
 
