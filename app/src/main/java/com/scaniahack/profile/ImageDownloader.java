@@ -26,8 +26,6 @@ public class ImageDownloader extends AsyncTask<String, String, Drawable> {
     @Override
     protected Drawable doInBackground(String... params) {
         Drawable d = null;
-
-
         URL url = null;
 
         try {
