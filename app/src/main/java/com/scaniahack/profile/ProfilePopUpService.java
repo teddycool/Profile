@@ -19,6 +19,7 @@ import android.content.Context;
 import android.widget.Toast;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.widget.Button;
 
 public class ProfilePopUpService extends Service {
 
@@ -26,6 +27,8 @@ public class ProfilePopUpService extends Service {
     private ImageView chatHead;
     //private PopUpView popUp;
     private TextView textView;
+    private Button b;
+    private Card c;
 
     /**
      * A constructor is required, and must call the super IntentService(String)
@@ -42,22 +45,12 @@ public class ProfilePopUpService extends Service {
         super.onCreate();
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         textView = new TextView(this);
+        b = new Button(this);
+        c = null;
+
         //popUp = new PopUpView(this);
-        final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT);
 
-        params.gravity = Gravity.TOP | Gravity.LEFT;
-        params.x = 0;
-        params.y = 100;
-
-        //textView.append("tgtest");
-
-        //windowManager.addView(textView, params);
-
+        textView.setText("tgtest");
 
         final TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         PhoneStateListener phoneStateListener = new PhoneStateListener() {
@@ -71,33 +64,62 @@ public class ProfilePopUpService extends Service {
                         ProfileSearcher ps = new ProfileSearcher();
                         String name = ps.search(number.replaceFirst("^0+(?!$)", ""));
 
-                        Context context = getApplicationContext();
-                        CharSequence text = currentPhoneState;
-                        int duration = Toast.LENGTH_LONG;
-                        Toast toast = Toast.makeText(context, name, duration);
-                        toast.show();
+                        showPopUp(name);
 
 
                         break;
                     case TelephonyManager.CALL_STATE_OFFHOOK:
                         currentPhoneState = "Device call state is currently Off Hook.\n\n";
+                        if (c != null) {
+                            windowManager.removeView(c);
+                            c = null;
+                        }
                         break;
                     case TelephonyManager.CALL_STATE_IDLE:
                         currentPhoneState = "Device call state is currently Idle.\n\n";
+                        if (c != null) {
+                            windowManager.removeView(c);
+                            c = null;
+                        }
                         break;
 
                 }
-
-
-
-
-
             }
         };
         telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
-/*
+
+    }
+
+    public void onSearchResult()
+    {
+
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (c != null) windowManager.removeView(c);
+    }
+
+    private void showPopUp(String res_jason)
+    {
+        c = new Card(this);
+        c.setTitle(res_jason);
+        final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.TYPE_PHONE,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                PixelFormat.TRANSLUCENT);
+
+        params.gravity = Gravity.CENTER | Gravity.CENTER;
+        params.x = 100;
+        params.y = 0;
+
+        windowManager.addView(c, params);
         try {
-            chatHead.setOnTouchListener(new View.OnTouchListener() {
+            c.setOnTouchListener(new View.OnTouchListener() {
                 private WindowManager.LayoutParams paramsF = params;
                 private int initialX;
                 private int initialY;
@@ -120,7 +142,7 @@ public class ProfilePopUpService extends Service {
                         case MotionEvent.ACTION_MOVE:
                             paramsF.x = initialX + (int) (event.getRawX() - initialTouchX);
                             paramsF.y = initialY + (int) (event.getRawY() - initialTouchY);
-                            windowManager.updateViewLayout(chatHead, paramsF);
+                            windowManager.updateViewLayout(c, paramsF);
                             break;
                     }
                     return false;
@@ -130,19 +152,6 @@ public class ProfilePopUpService extends Service {
             // TODO: handle exception
         }
 
-        */
 
-    }
-
-    public void onSearchResult()
-    {
-
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (chatHead != null) windowManager.removeView(chatHead);
     }
 }
