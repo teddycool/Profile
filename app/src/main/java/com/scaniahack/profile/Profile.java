@@ -22,7 +22,10 @@ import java.net.URLConnection;
 import android.util.Base64;
 
 import android.widget.EditText;
+import android.widget.ImageView;
+
 public class Profile extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +53,19 @@ public class Profile extends AppCompatActivity {
         String searchtext = ((EditText) findViewById(R.id.searchText)).getText().toString();
         ProfileSearcher ps = new ProfileSearcher();
         ResJson res = null;
+
         String result = "Inget hittat....";
         res = ps.jsonsearch(searchtext);
         if (res != null) {
-             result = res.getValue("preferred_name") + "\r\n " + res.getValue("profile_job_position")
+            ImageDownloader img_d = new ImageDownloader();
+            img_d.setImgView((ImageView)findViewById(R.id.profileImage));
+            img_d.execute(res.getImageUrl());
+            result = res.getValue("preferred_name") + "\r\n " + res.getValue("profile_job_position")
                     + "\r\n" + res.getDepartment() + "\r\n" + res.getPhone();
         }
         ProfileLog.Print('i', "JsonRes", result);
         ((EditText) findViewById(R.id.searchResult)).setText(result);
+
     }
 
 

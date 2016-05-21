@@ -1,7 +1,9 @@
 package com.scaniahack.profile;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by ssstsu on 2016-05-21.
@@ -19,20 +21,24 @@ public class ProfileSearcher {
 
         Search  asyncGetResult = new Search();
         String urls = "https://devwcm.scania.com/profile?q=" + search_text.replace(" ", "%20");
-        ProfileLog.Print('d', "URL: " + urls, "ALL");
         URL url = null;
-
         try {
-            url = new URL(urls);
-        } catch (MalformedURLException e) {
+            final String encodedURL = URLEncoder.encode(urls, "UTF-8");
+            url = new URL(encodedURL);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+         catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ProfileLog.Print('d', "SENT URL:", url.toString());
+         ProfileLog.Print('d', "URL ENC:", url.toString());
 
         try {
+
             ResJson result = asyncGetResult.execute(url).get();
             return result.getValue("preferred_name");
         } catch (Exception e) {
@@ -49,18 +55,22 @@ public class ProfileSearcher {
 
         Search  asyncGetResult = new Search();
         String urls = "https://devwcm.scania.com/profile?q=" + search_text.replace(" ", "%20");
-        ProfileLog.Print('d', "URL: " + urls, "ALL");
         URL url = null;
-
         try {
-            url = new URL(urls);
-        } catch (MalformedURLException e) {
+            final String encodedURL = URLEncoder.encode(urls, "UTF-8");
+            url = new URL(encodedURL);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ProfileLog.Print('d', "SENT URL:", url.toString());
+        ProfileLog.Print('d', "URL ENC:", url.toString());
+
 
         try {
             ResJson result = asyncGetResult.execute(url).get();
