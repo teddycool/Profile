@@ -44,6 +44,19 @@ public class Profile extends AppCompatActivity {
         startService(new Intent(Profile.this, ProfilePopUpService.class));
     }
 
+
+    public void profilesearch(View view) {
+        ProfileLog.Print('i', "ProfileSearch", "Button pressed");
+        String searchtext = ((EditText) findViewById(R.id.searchText)).getText().toString();
+        ProfileSearcher ps = new ProfileSearcher();
+        ResJson res = null;
+        res = ps.jsonsearch(searchtext);
+        String result = res.getValue("preferred_name") + " " + res.getValue("profile_job_position") + " " + res.getImageUrl()
+                + " " + res.getDepartment();
+        ProfileLog.Print('i', "JsonRes", result);
+        ((EditText) findViewById(R.id.searchResult)).setText(result);
+    }
+
     /**
      * Called when the user clicks the Send button
      */

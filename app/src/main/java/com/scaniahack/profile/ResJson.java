@@ -19,6 +19,39 @@ public class ResJson extends JSONObject{
     private JSONObject profileinfo;
 
 
+
+
+
+    public String getName() {
+        return this.getValue("preferred_name");
+    }
+
+    public String getImageUrl() {
+        String ImageUrl="";
+        String urloriginal = this.getValue("object_image");
+        String roturltemp= "https://devwcm.scania.com/profile/images/";
+        urloriginal.lastIndexOf("/");
+        ImageUrl = roturltemp + urloriginal.substring(urloriginal.lastIndexOf("/")+1);
+      //  http://accinline.scania.com/profile/ssspsk/ssspsk.jpg
+        // https://devwcm.scania.com/profile/images/ACHXWP.jpg
+        return ImageUrl;
+    }
+
+    public String getPhone() {
+        return this.getValue("profile_telephone");
+    }
+
+    public String getDepartment() {
+        return this.getValue("object_organisation_acronym");
+    }
+
+    public String getRole() {
+        return this.getValue("profile_job_position");
+    }
+
+
+
+
     public ResJson(String json) throws JSONException {
         super(json);
         hits = this.get("numberOfHits").toString();
@@ -47,4 +80,8 @@ public class ResJson extends JSONObject{
             }
         return value;
     }
+
+
+
+
 }
