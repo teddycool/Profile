@@ -15,11 +15,14 @@ import java.net.URLConnection;
 /**
  * Created by psk on 2016-05-21.
  */
-public class Search extends AsyncTask<URL, String, Integer>
+public class Search extends AsyncTask<URL, String, ResJson> {
 
-    {
+
+
+
         @Override
-        protected Integer doInBackground(URL... params) {
+        protected ResJson doInBackground(URL... params) {
+            ResJson res_jason = null;
 
         // Get the JSON
         URL url;
@@ -29,7 +32,7 @@ public class Search extends AsyncTask<URL, String, Integer>
 
             URLConnection connection;
             //connection.
-            final String basicAuth = "Basic " + Base64.encodeToString("us:pw".getBytes(), Base64.NO_WRAP);
+            final String basicAuth = "Basic " + Base64.encodeToString("ScaniaHack:N5rAB3bDwkjqjkJzAgh69v4".getBytes(), Base64.NO_WRAP);
 
             connection = url.openConnection();
             connection.setRequestProperty ("Authorization", basicAuth);
@@ -41,14 +44,14 @@ public class Search extends AsyncTask<URL, String, Integer>
                 String myString = convertStreamToString(in);
                 ProfileLog.Print('i', "Response", myString);
                 try {
-                    ResJson myjason = new ResJson(myString);
+                    res_jason = new ResJson(myString);
 
-                    ProfileLog.Print('i', "Hits", myjason.hits());
-                    ProfileLog.Print('i', "Name", myjason.getValue("preferred_name"));
-                    ProfileLog.Print('i', "Department", myjason.getValue("object_organisation_acronym"));
-                    ProfileLog.Print('i', "ImageLink", myjason.getValue("object_image"));
-                    ProfileLog.Print('i', "Jobposition", myjason.getValue("profile_job_position"));
-                    ProfileLog.Print('i', "Phone", myjason.getValue("profile_telephone"));
+                    ProfileLog.Print('i', "Hits", res_jason.hits());
+                    ProfileLog.Print('i', "Name", res_jason.getValue("preferred_name"));
+                    ProfileLog.Print('i', "Department", res_jason.getValue("object_organisation_acronym"));
+                    ProfileLog.Print('i', "ImageLink", res_jason.getValue("object_image"));
+                    ProfileLog.Print('i', "Jobposition", res_jason.getValue("profile_job_position"));
+                    ProfileLog.Print('i', "Phone", res_jason.getValue("profile_telephone"));
 
 
                 }
@@ -64,8 +67,9 @@ public class Search extends AsyncTask<URL, String, Integer>
         } finally {
         }
 
-        return null;
+        return res_jason;
     }
+
 
         private String convertStreamToString(InputStream is) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));

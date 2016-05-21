@@ -1,5 +1,6 @@
 package com.scaniahack.profile;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,6 +39,9 @@ public class Profile extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        // Start popup service
+        startService(new Intent(Profile.this, ProfilePopUpService.class));
     }
 
     /**
