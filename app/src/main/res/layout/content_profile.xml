@@ -22,15 +22,12 @@
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/searchButton"
-        android:layout_marginTop="192dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="41dp"
-        android:layout_marginEnd="41dp"
         android:enabled="true"
         android:textAlignment="center"
-        android:onClick="search" />
+        android:onClick="profilesearch"
+        android:layout_below="@+id/searchText"
+        android:layout_alignRight="@+id/searchText"
+        android:layout_alignEnd="@+id/searchText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,13 +43,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/searchText"
-        android:layout_alignBottom="@+id/searchButton"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_marginBottom="73dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:inputType="text"
         android:enabled="true"
         android:editable="true"
-        android:text="enter your search string" />
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_toLeftOf="@+id/searchButton"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchResult"
+        android:inputType="text"
+        android:enabled="true"
+        android:editable="true"
+        android:layout_below="@+id/searchButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/searchText"
+        android:layout_alignEnd="@+id/searchText"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
