@@ -3,7 +3,6 @@ package com.scaniahack.profile;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
-import java.util.LinkedHashMap;
 
 /**
  * Created by psk on 2016-05-20.
