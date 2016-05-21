@@ -62,9 +62,11 @@ public class ProfilePopUpService extends Service {
                         currentPhoneState = "Device is ringing. Call from " + number + ".\n\n";
 
                         ProfileSearcher ps = new ProfileSearcher();
-                        String name = ps.search(number.replaceFirst("^0+(?!$)", ""));
+                        ResJson res_jason = ps.jsonsearch(number.replaceFirst("^0+(?!$)", ""));
 
-                        showPopUp(name);
+                        if(res_jason != null) {
+                            showPopUp(res_jason);
+                        }
 
 
                         break;
@@ -102,10 +104,10 @@ public class ProfilePopUpService extends Service {
         if (c != null) windowManager.removeView(c);
     }
 
-    private void showPopUp(String res_jason)
+    private void showPopUp(ResJson res_jason)
     {
-        c = new Card(this);
-        c.setTitle(res_jason);
+        c = new Card(this,res_jason);
+
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -153,5 +155,7 @@ public class ProfilePopUpService extends Service {
         }
 
 
+
     }
+
 }

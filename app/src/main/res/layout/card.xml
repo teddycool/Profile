@@ -30,6 +30,15 @@
         android:layout_below="@+id/title"
         android:layout_toLeftOf="@+id/icon"
         />
+    <TextView
+        android:id="@+id/department"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="department"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_below="@+id/description"
+        android:layout_toLeftOf="@+id/icon"
+        />
 
     <ImageView
         android:id="@+id/icon"
