@@ -1,5 +1,6 @@
 # Profile
-Fetching and using profile information
+Fetching and using profile information.
+
 Project from ScaniaHack 2016. Demonstrator of how profileinformation from intranet can be presented. 
 Two fuctions: 
 'Who is calling?' 
